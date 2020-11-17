@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+<div id="button">
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Add</button>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data_target="#editModal" onClick="checkBox()">Edit</button>
+    <button type="button" class="btn btn-secondary" onClick="checkBox2()">Delete</button>
+</div>
+<div class="modal fade" id="addModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+         <h4 class="modal-title">Add Data</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+      <form method="post" action="save" >
+          <div class="form-group">
+            <label for="Kode Barang">Kode Barang</label>
+            <input type="text" class="form-control" name="KodeBarang"> 
+          </div>
+          <div class="form-group">
+            <label for="Nama Barang">Nama Barang</label>
+            <input type="text" class="form-control" name="NamaBarang">
+          </div>
+          <div class="form-group">
+            <label for="Harga Beli">Harga Beli</label>
+            <input type="text" class="form-control" name="HargaBeli">
+          </div>
+          <div>
+            <label for="Harga Jual">Harga Jual</label>
+            <input type="text" class="form-control" name="HargaJual">
+          </div>
+          <div>
+            <label for="Satuan">Satuan</label>
+            <input type="text" class="form-control" name="Satuan">
+          </div>
+          <br>
+          <select name="Kategori">
+             <option th:each="kategoriModel : ${ListKategoriModel}" th:value="${kategoriModel.kategori}" th:text="${kategoriModel.kategori}"></option>   
+          </select>
+          <br>         
+          <div class="modal-footer">
+          <input type="submit" value="Save">
+          </div>
+      </form>
+          
+      </div>
+      
+    </div>
+   </div>
+</div>
+
+<div class="modal fade" id="editModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+         <h4 class="modal-title">Edit Data</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+      <form method="post" action="edit">
+      	<div class="form-group">
+            <input type="text" class="form-control" style="display:none" name="id" id="editId"> 
+          </div>
+          <div class="form-group">
+            <label for="Kode Barang">Kode Barang</label>
+            <input type="text" class="form-control" name="KodeBarang" id="editkodebarang"> 
+          </div>
+          <div class="form-group">
+            <label for="Nama Barang">Nama Barang</label>
+            <input type="text" class="form-control" name="NamaBarang" id="editnamabarang">
+          </div>
+          <div class="form-group">
+            <label for="Harga Beli">Harga Beli</label>
+            <input type="text" class="form-control" name="HargaBeli" id="edithargabeli">
+          </div>
+          <div>
+            <label for="Harga Jual">Harga Jual</label>
+            <input type="text" class="form-control" name="HargaJual" id="edithargajual">
+          </div>
+          <div>
+            <label for="Satuan">Satuan</label>
+            <input type="text" class="form-control" name="Satuan" id="editsatuan">
+          </div>
+          <br>
+          <select name="Kategori" id="editKategori">
+             <option th:each="kategoriModel : ${ListKategoriModel}" th:value="${kategoriModel.kategori}" th:text="${kategoriModel.kategori}"></option>   
+          </select>
+          <br>
+          
+          <div class="modal-footer">
+          <input type="submit" value="Save">
+          </div>
+      </form>
+          
+      </div>
+      
+    </div>
+   </div>
+</div>
+
+<div>
+  <table class="table table-border"  id="tabeldata">
+      <tr>
+       <td>Kode Barang</td>
+       <td>Nama Barang</td>
+       <td>Harga Jual</td>
+       <td>Harga Beli</td>
+       <td>Satuan</td>
+       <td>Kategori</td>
+       <td id="checkbox"><input type="checkbox" id="check" onchange="checkAll(this)"> </td> 
+      </tr>
+      <tr th:each="dataBarangModel:${ListDataBarangModel}" class="row-select">
+       <td class="id" style="display:none"><a th:text="${dataBarangModel.id}"></a></td>
+       <td class="kodeBarang"><a th:text="${dataBarangModel.kodeBarang}"></a></td>
+       <td class="namaBarang"><a th:text="${dataBarangModel.namaBarang}"></a></td>
+       <td class="hargaJual"><a th:text="${dataBarangModel.hargaJual}"></a></td>
+       <td class="hargaBeli"><a th:text="${dataBarangModel.hargaBeli}"></a></td>
+       <td class="satuan"><a th:text="${dataBarangModel.satuan}"></a></td>
+       <td class="kategori"><a th:text="${dataBarangModel.kategori}"></a></td>
+       <td><input type="checkbox"></td>
+      </tr>
+      </c:forEach>
+    </table>
+    <p align="center" style="display: none" id="display"> Tidak ada data untuk ditampilkan</p>
+    <p id="demo"></p>
+</div>
+<script>
+var row = document.getElementById("tabeldata").rows.length-1;
+if(row==0){
+document.getElementById("display").style="block";
+}
+
+function checkBox() {
+	var check = document.querySelectorAll('input[type="checkbox"]:checked').length;
+	if(document.getElementById('check').checked){
+		check--;
+	}
+	if(check == 1 && !document.getElementById('check').checked){
+		$('#editModal').modal('show');
+	} else {
+		alert("pilih salah satu data")
+	} 
+	}
+	
+function checkBox2()  {
+	var check = document.querySelectorAll('input[type="checkbox"]:checked').length;
+	var ids = [];
+	
+	if(document.getElementById('check').checked){
+		check--;
+	}
+	
+	if(check == 0){
+		alert("Tidak ada data yang dipilih")
+	} else {
+		$(document).ready(function(){
+			$('.row-select input:checked').each(function() {
+				var id = $(this).closest('tr').find('.id').html();
+				ids.push(replaceandslice(id))
+				
+			});
+			
+		
+			$.ajax({
+				url     : '/DataBarang/delete',
+				type    : 'post',
+				data    : JSON.stringify(ids),
+				async:false,
+				dataType: "html or json",
+				contentType: "application/json",
+				 success : function (result) {
+					 $(document).ajaxStop(function(){
+	    				    window.location.reload();
+	    				});
+				},
+				 error: function (XMLHttpRequest, textStatus, errorThrown) {
+	                    $(document).ajaxStop(function(){
+	    				    window.location.reload();
+	    				});
+	             }
+ 			
+				 
+			})
+		}
+		
+		)
+
+		
+	}
+	
+}
+
+function checkAll(ele) {
+    var checkboxes = document.getElementsByTagName('input');
+    if (ele.checked) {
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].type == 'checkbox' ) {
+                checkboxes[i].checked = true;
+            }
+        }
+    } else {
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].type == 'checkbox') {
+                checkboxes[i].checked = false;
+            }
+        }
+    }
+}
+	
+$(document).ready(function(){
+	$('#editModal').on('show.bs.modal', function (e) {
+		$('.row-select input:checked').each(function() {
+			var id         = $(this).closest('tr').find('.id').html();
+			var kodeBarang = $(this).closest('tr').find('.kodeBarang').html();
+			var namaBarang = $(this).closest('tr').find('.namaBarang').html();
+			var hargaJual  = $(this).closest('tr').find('.hargaJual').html();
+			var hargaBeli  = $(this).closest('tr').find('.hargaBeli').html();
+			var satuan     = $(this).closest('tr').find('.satuan').html();
+			var kategori   = $(this).closest('tr').find('.kategori').html();
+			var mySelect   = document.getElementById('editKategori');
+			var idNew         = replaceandslice(id);
+			var kodeBarangNew = replaceandslice(kodeBarang);
+			var namaBarangNew = replaceandslice(namaBarang);
+			var hargaJualNew  = replaceandslice(hargaJual);
+			var hargaBeliNew  = replaceandslice(hargaBeli);
+			var satuanNew     = replaceandslice(satuan);
+			var kategoriNew     = replaceandslice(kategori);
+			$('#editId').val(idNew);
+			$('#editkodebarang').val(kodeBarangNew);
+			$('#editnamabarang').val(namaBarangNew);
+			$('#edithargajual').val(hargaJualNew);
+			$('#edithargabeli').val(hargaBeliNew);
+			$('#editsatuan').val(satuanNew);
+			
+			for(var i,j = 0; i=mySelect.options[j];j++){
+				if(i.value == kategoriNew) {
+					mySelect.selectedIndex = j;
+					break;
+				}
+			}
+		}
+		)
+	}
+	)
+})
+
+function replaceandslice(str) {
+		return str.replace(/<a>/gi, "").substring(0, str.length - 7);
+	}
+	
+
+</script>
+</body>
+</html>
