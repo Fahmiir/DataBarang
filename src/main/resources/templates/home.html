@@ -169,24 +169,22 @@ function checkBox2()  {
 				ids.push(replaceandslice(id))
 				
 			});
-			
-		
+
 			$.ajax({
 				url     : '/DataBarang/delete',
 				type    : 'post',
 				data    : JSON.stringify(ids),
 				async:false,
-				dataType: "html or json",
+		        dataType : "text",
 				contentType: "application/json",
 				 success : function (result) {
-					 $(document).ajaxStop(function(){
+					 alert("sukses hapus data");
+				 	  $(document).ajaxStop(function(){
 	    				    window.location.reload();
-	    				});
-				},
+	    				});  
+				}, 
 				 error: function (XMLHttpRequest, textStatus, errorThrown) {
-	                    $(document).ajaxStop(function(){
-	    				    window.location.reload();
-	    				});
+	                 alert("tidak sukses hapus data");     
 	             }
  			
 				 
