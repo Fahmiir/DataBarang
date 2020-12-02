@@ -81,6 +81,13 @@ public class DataBarangController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value="/view", produces="text/plain")
+	@ResponseBody
+	public String viewData(Model model, @RequestBody Integer i) {
+		model.addAttribute("i",i);
+		return "redirect:/";
+	}
+	
 
 
 	@RequestMapping(value="/delete", produces="text/plain")

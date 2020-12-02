@@ -11,8 +11,9 @@
 <body>
 <div id="button">
     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Add</button>
-    <button type="button" class="btn btn-secondary" data-toggle="modal" data_target="#editModal" onClick="checkBox()">Edit</button>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" onClick="checkBox()">Edit</button>
     <button type="button" class="btn btn-secondary" onClick="checkBox2()">Delete</button>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" onClick="checkBox3()">View</button>
 </div>
 <div class="modal fade" id="addModal" role="dialog">
   <div class="modal-dialog">
@@ -108,6 +109,43 @@
    </div>
 </div>
 
+<div class="modal fade" id="viewModal" role="dialog">
+  <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+          <h4 class="modal-title">View Data</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+       <div class="modal-body">
+          <div class="form-group">
+            <label for="Kode Barang">Kode Barang</label><br>
+            <label id="viewKodeBarang"></label> 
+          </div>
+          <div class="form-group">
+            <label for="Nama Barang">Nama Barang</label><br>
+            <label id="viewNamaBarang"></label>
+          </div>
+          <div class="form-group">
+            <label for="Harga Beli">Harga Beli</label><br>
+            <label id="viewHargaBeli"></label>
+          </div>
+          <div>
+            <label for="Harga Jual">Harga Jual</label><br>
+            <label id="viewHargaJual"></label>
+          </div>
+          <div>
+            <label for="Satuan">Satuan</label><br>
+            <label id="viewSatuan"></label>
+          </div>
+          <div>
+            <label for="Kategori">Kategori</label><br>
+            <label id="viewKategori"></label>
+          </div>
+       </div>
+     </div>
+  </div>
+</div>
+
 <div>
   <table class="table table-border"  id="tabeldata">
       <tr>
@@ -134,11 +172,12 @@
     <p align="center" style="display: none" id="display"> Tidak ada data untuk ditampilkan</p>
     <p id="demo"></p>
 </div>
-<script>
+<script th:inline="javascript">
 var row = document.getElementById("tabeldata").rows.length-1;
 if(row==0){
 document.getElementById("display").style="block";
 }
+
 
 function checkBox() {
 	var check = document.querySelectorAll('input[type="checkbox"]:checked').length;
@@ -155,7 +194,8 @@ function checkBox() {
 function checkBox2()  {
 	var check = document.querySelectorAll('input[type="checkbox"]:checked').length;
 	var ids = [];
-	
+	var i ;
+	var ListData;
 	if(document.getElementById('check').checked){
 		check--;
 	}
@@ -165,8 +205,10 @@ function checkBox2()  {
 	} else {
 		$(document).ready(function(){
 			$('.row-select input:checked').each(function() {
-				var id = $(this).closest('tr').find('.id').html();
-				ids.push(replaceandslice(id))
+				ListData = [[${ListDataBarangModel}]];
+				i = $(this).closest("tr").index()-1;
+				var selectedId = ListData[i].id;
+				ids.push(selectedId)
 				
 			});
 
@@ -198,6 +240,19 @@ function checkBox2()  {
 	
 }
 
+function checkBox3() {
+	var check = document.querySelectorAll('input[type="checkbox"]:checked').length;
+	if(document.getElementById('check').checked){
+		check--;
+	}
+	if(check == 1 && !document.getElementById('check').checked){
+		$('#viewModal').modal('show');
+	    
+	} else {
+		alert("pilih salah satu data")
+	} 
+	}
+
 function checkAll(ele) {
     var checkboxes = document.getElementsByTagName('input');
     if (ele.checked) {
@@ -216,32 +271,29 @@ function checkAll(ele) {
 }
 	
 $(document).ready(function(){
+	var i ;
+	var ListData;
 	$('#editModal').on('show.bs.modal', function (e) {
 		$('.row-select input:checked').each(function() {
-			var id         = $(this).closest('tr').find('.id').html();
-			var kodeBarang = $(this).closest('tr').find('.kodeBarang').html();
-			var namaBarang = $(this).closest('tr').find('.namaBarang').html();
-			var hargaJual  = $(this).closest('tr').find('.hargaJual').html();
-			var hargaBeli  = $(this).closest('tr').find('.hargaBeli').html();
-			var satuan     = $(this).closest('tr').find('.satuan').html();
-			var kategori   = $(this).closest('tr').find('.kategori').html();
+			i = $(this).closest("tr").index()-1;
+			ListData = [[${ListDataBarangModel}]];
+			var selectedId         = ListData[i].id;
+			var selectedKodeBarang = ListData[i].kodeBarang;
+			var selectedNamaBarang = ListData[i].namaBarang;
+			var selectedHargaBeli  = ListData[i].hargaBeli;
+			var selectedHargaJual  = ListData[i].hargaJual;
+			var selectedSatuan     = ListData[i].satuan;
+			var selectedKategori   = ListData[i].kategori;
 			var mySelect   = document.getElementById('editKategori');
-			var idNew         = replaceandslice(id);
-			var kodeBarangNew = replaceandslice(kodeBarang);
-			var namaBarangNew = replaceandslice(namaBarang);
-			var hargaJualNew  = replaceandslice(hargaJual);
-			var hargaBeliNew  = replaceandslice(hargaBeli);
-			var satuanNew     = replaceandslice(satuan);
-			var kategoriNew     = replaceandslice(kategori);
-			$('#editId').val(idNew);
-			$('#editkodebarang').val(kodeBarangNew);
-			$('#editnamabarang').val(namaBarangNew);
-			$('#edithargajual').val(hargaJualNew);
-			$('#edithargabeli').val(hargaBeliNew);
-			$('#editsatuan').val(satuanNew);
+			$('#editId').val(selectedId);
+			$('#editkodebarang').val(selectedKodeBarang);
+			$('#editnamabarang').val(selectedNamaBarang);
+			$('#edithargajual').val(selectedHargaBeli);
+			$('#edithargabeli').val(selectedHargaJual);
+			$('#editsatuan').val(selectedSatuan);
 			
 			for(var i,j = 0; i=mySelect.options[j];j++){
-				if(i.value == kategoriNew) {
+				if(i.value == selectedKategori) {
 					mySelect.selectedIndex = j;
 					break;
 				}
@@ -252,9 +304,30 @@ $(document).ready(function(){
 	)
 })
 
-function replaceandslice(str) {
-		return str.replace(/<a>/gi, "").substring(0, str.length - 7);
-	}
+$(document).ready(function(){
+	var i ;
+	var ListData;
+	$('#viewModal').on('show.bs.modal',function(e){
+		$('.row-select input:checked').each(function() {
+			i = $(this).closest("tr").index()-1;
+			ListData = [[${ListDataBarangModel}]];
+			var selectedKodeBarang = ListData[i].kodeBarang;
+			var selectedNamaBarang = ListData[i].namaBarang;
+			var selectedHargaBeli  = ListData[i].hargaBeli;
+			var selectedHargaJual  = ListData[i].hargaJual;
+			var selectedSatuan     = ListData[i].satuan;
+			var selectedKategori   = ListData[i].kategori;
+			document.getElementById("viewKodeBarang").innerHTML = selectedKodeBarang;
+			document.getElementById("viewNamaBarang").innerHTML = selectedNamaBarang;
+			document.getElementById("viewHargaBeli").innerHTML  = selectedHargaBeli;
+			document.getElementById("viewHargaJual").innerHTML  = selectedHargaJual;
+			document.getElementById("viewSatuan").innerHTML     = selectedSatuan;
+			document.getElementById("viewKategori").innerHTML   = selectedKategori;
+		})
+	});
+})
+
+
 	
 
 </script>

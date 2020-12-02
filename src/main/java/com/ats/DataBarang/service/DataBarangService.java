@@ -1,6 +1,7 @@
 package com.ats.DataBarang.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -31,5 +32,7 @@ public class DataBarangService {
 	public void delete(List<Integer> ids) {
 		dr.deleteBarangWithIds(ids);
 	}
+	
+	
 
 }
