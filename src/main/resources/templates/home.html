@@ -158,7 +158,6 @@
        <td id="checkbox"><input type="checkbox" id="check" onchange="checkAll(this)"> </td> 
       </tr>
       <tr th:each="dataBarangModel:${ListDataBarangModel}" class="row-select">
-       <td class="id" style="display:none"><a th:text="${dataBarangModel.id}"></a></td>
        <td class="kodeBarang"><a th:text="${dataBarangModel.kodeBarang}"></a></td>
        <td class="namaBarang"><a th:text="${dataBarangModel.namaBarang}"></a></td>
        <td class="hargaJual"><a th:text="${dataBarangModel.hargaJual}"></a></td>
