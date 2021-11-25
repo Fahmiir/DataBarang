@@ -14,5 +14,9 @@ public interface DataBarangRepository extends JpaRepository<DataBarangModel, Int
 	@Query("delete from DataBarangModel d where d.id in ?1")
 	void deleteBarangWithIds(List<Integer> ids);
 	
+	@Modifying
+	@Query(value="Select * from tabel_barang tb where tb.nama_barang like %?1%", nativeQuery = true)
+	List<DataBarangModel> searchByNamaBarang (String barang);
+	
 
 }

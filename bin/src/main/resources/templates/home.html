@@ -9,16 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div style="display:flex">
-    <div id="button">
-          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Add</button>
-          <button type="button" class="btn btn-secondary" data-toggle="modal" onClick="checkBox()">Edit</button>
-          <button type="button" class="btn btn-secondary" onClick="checkBox2()">Delete</button>
-          <button type="button" class="btn btn-secondary" data-toggle="modal" onClick="checkBox3()">View</button>
-    </div>
-<form th:action="@{/}" id="myForm" name="myForm">
-    <input type="text" name="jenis" id="search" th:value="${Jenis}">
-</form>
+<div id="button">
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Add</button>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" onClick="checkBox()">Edit</button>
+    <button type="button" class="btn btn-secondary" onClick="checkBox2()">Delete</button>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" onClick="checkBox3()">View</button>
 </div>
 <div class="modal fade" id="addModal" role="dialog">
   <div class="modal-dialog">
@@ -331,17 +326,7 @@ $(document).ready(function(){
 	});
 })
 
-$(document).ready(function(){
-	$("#search").on("input",function(){
-		$('#myForm').submit();
-	})
-})
 
-
-$(document).ready(function(){
-	var data = $('#search').val();
-	$('#search').focus().val('').val(data);
-})
 	
 
 </script>

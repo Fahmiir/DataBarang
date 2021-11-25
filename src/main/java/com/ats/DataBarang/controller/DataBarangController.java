@@ -30,11 +30,12 @@ public class DataBarangController {
 	DataBarangService ds;
 	
 	@RequestMapping(value="/")
-	public String menuHome(Model model) {
+	public String menuHome(Model model, @RequestParam(value="jenis",required=false,defaultValue="") String jenis) {
 		List<KategoriModel> lk = new ArrayList<>();
 		List<DataBarangModel> dk = new ArrayList<>();
 		lk = ks.read();
-		dk = ds.read();
+		dk = ds.read(jenis);
+		model.addAttribute("Jenis",jenis);
 		model.addAttribute("ListKategoriModel",lk);
 		model.addAttribute("ListDataBarangModel",dk);
 		String html = "home";
