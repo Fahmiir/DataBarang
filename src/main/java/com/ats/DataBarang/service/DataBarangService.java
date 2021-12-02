@@ -18,7 +18,11 @@ public class DataBarangService {
 	@Autowired
 	DataBarangRepository dr ;
 	
-	public List<DataBarangModel> read(String barang){
+	public List<DataBarangModel> read(String barang, String submit){
+		if(submit!=null) {
+			return dr.orderByNamaBarang();
+		}
+		
 		if(barang.isEmpty()) {
 			return dr.findAll();	
 		}

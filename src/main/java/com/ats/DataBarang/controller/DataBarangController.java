@@ -30,11 +30,12 @@ public class DataBarangController {
 	DataBarangService ds;
 	
 	@RequestMapping(value="/")
-	public String menuHome(Model model, @RequestParam(value="jenis",required=false,defaultValue="") String jenis) {
+	public String menuHome(Model model, @RequestParam(value="jenis",required=false,defaultValue="") String jenis,HttpServletRequest request) {
 		List<KategoriModel> lk = new ArrayList<>();
 		List<DataBarangModel> dk = new ArrayList<>();
+		String button = request.getParameter("button");
 		lk = ks.read();
-		dk = ds.read(jenis);
+		dk = ds.read(jenis,button);
 		model.addAttribute("Jenis",jenis);
 		model.addAttribute("ListKategoriModel",lk);
 		model.addAttribute("ListDataBarangModel",dk);
