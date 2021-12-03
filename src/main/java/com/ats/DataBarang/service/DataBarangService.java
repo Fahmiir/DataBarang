@@ -1,5 +1,6 @@
 package com.ats.DataBarang.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,16 +20,19 @@ public class DataBarangService {
 	DataBarangRepository dr ;
 	
 	public List<DataBarangModel> read(String barang, String submit){
-		if(submit!=null) {
+		if(submit==null && barang.isEmpty()) {
+			return dr.findAll();
+		}
+		else if(submit!=null && barang.isEmpty()) {
 			return dr.orderByNamaBarang();
 		}
-		
-		if(barang.isEmpty()) {
-			return dr.findAll();	
-		}
-		else {
+		else if(submit==null && !barang.isEmpty()) {
 			return dr.searchByNamaBarang(barang);
 		}
+		else if(submit!=null && !barang.isEmpty()) {
+			return dr.searchAndOrder(barang);
+		}
+		return null;
 	}
 	
 	public void create(DataBarangModel dm) {

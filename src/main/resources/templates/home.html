@@ -18,9 +18,7 @@
     </div>
 <form th:action="@{/}" id="myForm" name="myForm" autofocus>
     <input type="text" name="jenis" id="search" th:value="${Jenis}">
-</form>
-<form>
-    <input type="submit" name="button">
+    <input type="submit" name="button" value="sorting">
 </form>
 </div>
 <div class="modal fade" id="addModal" role="dialog">
@@ -105,7 +103,6 @@
              <option th:each="kategoriModel : ${ListKategoriModel}" th:value="${kategoriModel.kategori}" th:text="${kategoriModel.kategori}"></option>   
           </select>
           <br>
-          
           <div class="modal-footer">
           <input type="submit" value="Save">
           </div>

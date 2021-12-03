@@ -21,5 +21,9 @@ public interface DataBarangRepository extends JpaRepository<DataBarangModel, Int
 	@Modifying
 	@Query(value="Select * from tabel_barang tb order by tb.nama_barang", nativeQuery= true)
 	List<DataBarangModel> orderByNamaBarang();
+	
+	@Modifying
+	@Query(value="Select * from tabel_barang tb where tb.nama_barang like %?1% order by tb.nama_barang", nativeQuery=true)
+	List<DataBarangModel> searchAndOrder(String barang);
 
 }
