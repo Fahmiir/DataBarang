@@ -16,9 +16,9 @@
           <button type="button" class="btn btn-secondary" onClick="checkBox2()">Delete</button>
           <button type="button" class="btn btn-secondary" data-toggle="modal" onClick="checkBox3()">View</button>
     </div>
-<form th:action="@{/}" id="myForm" name="myForm" autofocus>
-    <input type="text" name="jenis" id="search" th:value="${Jenis}">
-    <input type="submit" name="button" value="sorting">
+<form th:action="@{/}" id="myForm" name="myForm" method="get">
+    <input type="text" name="jenis" id="search" th:value="${Jenis}">    
+    <button name="button" value="Sorting" id="sorting">Sorting</button>
 </form>
 </div>
 <div class="modal fade" id="addModal" role="dialog">
@@ -331,15 +331,32 @@ $(document).ready(function(){
 	});
 })
 
-
+var url ;
 $(document).ready(function(){
 	$("#search").on("input",function(){
-		var get_cursor = $('#search').get(0).selectionStart; 
-		$('#myForm').submit();
-	})
- 	var data = $('#search').val();
+//		var get_cursor = $('#search').get(0).selectionStart; 
+ /*           if((url.get("button") !== null) && (url.get("button") !== '')){
+           url.set("button",url.get("button")); 
+        }   
+ */		$('#myForm').submit();
+        if((url.get("button") !== null) && (url.get("button") !== '')){
+           $('#sorting').click();
+    }   
+
+    })
+	url = new URLSearchParams(window.location.search);
+	var data = $('#search').val();
 	$('#search').focus().val('').val(data);   
 })
+
+$(document).ready(function(){
+	$('#sorting').on("click",function(){
+		$('#myForm').submit();
+	})
+})
+
+
+
 
 </script>
 </body>
