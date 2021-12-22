@@ -19,6 +19,7 @@
 <form th:action="@{/}" id="myForm" name="myForm" method="get">
     <input type="text" name="jenis" id="search" th:value="${Jenis}">    
     <button name="button" value="Sorting" id="sorting">Sorting</button>
+    <button name="button2" value="Unsorting" id="unsorting">Unsorting</button>
 </form>
 </div>
 <div class="modal fade" id="addModal" role="dialog">
@@ -335,10 +336,7 @@ var url ;
 $(document).ready(function(){
 	$("#search").on("input",function(){
 //		var get_cursor = $('#search').get(0).selectionStart; 
- /*           if((url.get("button") !== null) && (url.get("button") !== '')){
-           url.set("button",url.get("button")); 
-        }   
- */		$('#myForm').submit();
+		$('#myForm').submit();
         if((url.get("button") !== null) && (url.get("button") !== '')){
            $('#sorting').click();
     }   
