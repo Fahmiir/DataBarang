@@ -356,12 +356,20 @@ $(window).on("load",function(){
 
 $(document).ready(function(){
 	$('#sorting').on("click",function(){
+		get_cursor = $('#search').get(0).selectionStart;
+		$('#cursor').val(get_cursor);
 		$('#myForm').submit();
 	})
 });
 
 
-
+$(document).ready(function(){
+	$('#unsorting').on("click",function(){
+		get_cursor = $('#search').get(0).selectionStart;
+		$('#cursor').val(get_cursor);
+		$('#myForm').submit();
+	})
+});
 
 </script>
 </body>
