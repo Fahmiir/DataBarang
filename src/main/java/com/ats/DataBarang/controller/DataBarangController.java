@@ -31,16 +31,20 @@ public class DataBarangController {
 	DataBarangService ds;
 	
 	@RequestMapping(value="/")
-	public String menuHome(Model model, @RequestParam(value="jenis",required=false,defaultValue="") String jenis,
-			               @RequestParam(value="button", required = false) String button,HttpServletRequest request) {
+	public String menuHome(Model model, 
+			               @RequestParam(value="jenis",required=false,defaultValue="") String jenis,
+			               @RequestParam(value="button", required = false) String button,
+			               @RequestParam(value="cursor", required = false) String cursor,
+			               HttpServletRequest request) {
 		List<KategoriModel> lk = new ArrayList<>();
 		List<DataBarangModel> dk = new ArrayList<>();
-		System.out.println(button);
+		System.out.println(cursor);
 		lk = ks.read();
 		dk = ds.read(jenis,button);
 		model.addAttribute("Jenis",jenis);
 		model.addAttribute("ListKategoriModel",lk);
 		model.addAttribute("ListDataBarangModel",dk);
+		model.addAttribute("Position", cursor);
 		String html = "home";
 		return html;
 	}

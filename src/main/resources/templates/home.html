@@ -20,7 +20,9 @@
     <input type="text" name="jenis" id="search" th:value="${Jenis}">    
     <button name="button" value="Sorting" id="sorting">Sorting</button>
     <button name="button2" value="Unsorting" id="unsorting">Unsorting</button>
+    <input type="text" id="cursor" name="cursor" style="display: none">
 </form>
+<input type="text" id="position" th:value="${Position}" style="display: none">
 </div>
 <div class="modal fade" id="addModal" role="dialog">
   <div class="modal-dialog">
@@ -333,25 +335,30 @@ $(document).ready(function(){
 })
 
 var url ;
+var get_cursor;
 $(document).ready(function(){
 	$("#search").on("input",function(){
-//		var get_cursor = $('#search').get(0).selectionStart; 
+		get_cursor = $('#search').get(0).selectionStart;
+		$('#cursor').val(get_cursor);
 		$('#myForm').submit();
         if((url.get("button") !== null) && (url.get("button") !== '')){
            $('#sorting').click();
-    }   
-
+        }
     })
 	url = new URLSearchParams(window.location.search);
-	var data = $('#search').val();
-	$('#search').focus().val('').val(data);   
-})
+});
+
+$(window).on("load",function(){
+	    var x = $('#position').val();
+		$('#search').focus();
+		$('#search')[0].setSelectionRange(x,x);
+	}); 	
 
 $(document).ready(function(){
 	$('#sorting').on("click",function(){
 		$('#myForm').submit();
 	})
-})
+});
 
 
 
