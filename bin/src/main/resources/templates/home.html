@@ -9,11 +9,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div id="button">
-    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Add</button>
-    <button type="button" class="btn btn-secondary" data-toggle="modal" onClick="checkBox()">Edit</button>
-    <button type="button" class="btn btn-secondary" onClick="checkBox2()">Delete</button>
-    <button type="button" class="btn btn-secondary" data-toggle="modal" onClick="checkBox3()">View</button>
+<div style="display:flex">
+    <div id="button">
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Add</button>
+          <button type="button" class="btn btn-secondary" data-toggle="modal" onClick="checkBox()">Edit</button>
+          <button type="button" class="btn btn-secondary" onClick="checkBox2()">Delete</button>
+          <button type="button" class="btn btn-secondary" data-toggle="modal" onClick="checkBox3()">View</button>
+    </div>
+<form th:action="@{/}" id="myForm" name="myForm" method="get">
+    <input type="text" name="jenis" id="search" th:value="${Jenis}">    
+    <button name="button" value="Sorting" id="sorting">Sorting</button>
+    <button name="button2" value="Unsorting" id="unsorting">Unsorting</button>
+    <input type="text" id="cursor" name="cursor" style="display: none">
+</form>
+<input type="text" id="position" th:value="${Position}" style="display: none">
 </div>
 <div class="modal fade" id="addModal" role="dialog">
   <div class="modal-dialog">
@@ -97,7 +106,6 @@
              <option th:each="kategoriModel : ${ListKategoriModel}" th:value="${kategoriModel.kategori}" th:text="${kategoriModel.kategori}"></option>   
           </select>
           <br>
-          
           <div class="modal-footer">
           <input type="submit" value="Save">
           </div>
@@ -326,8 +334,42 @@ $(document).ready(function(){
 	});
 })
 
+var url ;
+var get_cursor;
+$(document).ready(function(){
+	$("#search").on("input",function(){
+		get_cursor = $('#search').get(0).selectionStart;
+		$('#cursor').val(get_cursor);
+		$('#myForm').submit();
+        if((url.get("button") !== null) && (url.get("button") !== '')){
+           $('#sorting').click();
+        }
+    })
+	url = new URLSearchParams(window.location.search);
+});
 
-	
+$(window).on("load",function(){
+	    var x = $('#position').val();
+		$('#search').focus();
+		$('#search')[0].setSelectionRange(x,x);
+	}); 	
+
+$(document).ready(function(){
+	$('#sorting').on("click",function(){
+		get_cursor = $('#search').get(0).selectionStart;
+		$('#cursor').val(get_cursor);
+		$('#myForm').submit();
+	})
+});
+
+
+$(document).ready(function(){
+	$('#unsorting').on("click",function(){
+		get_cursor = $('#search').get(0).selectionStart;
+		$('#cursor').val(get_cursor);
+		$('#myForm').submit();
+	})
+});
 
 </script>
 </body>

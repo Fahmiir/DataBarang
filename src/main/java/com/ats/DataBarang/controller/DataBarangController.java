@@ -38,7 +38,6 @@ public class DataBarangController {
 			               HttpServletRequest request) {
 		List<KategoriModel> lk = new ArrayList<>();
 		List<DataBarangModel> dk = new ArrayList<>();
-		System.out.println(cursor);
 		lk = ks.read();
 		dk = ds.read(jenis,button);
 		model.addAttribute("Jenis",jenis);
