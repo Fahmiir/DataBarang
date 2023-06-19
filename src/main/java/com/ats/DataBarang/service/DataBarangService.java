@@ -1,6 +1,5 @@
 package com.ats.DataBarang.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,10 +41,19 @@ public class DataBarangService {
 	public void update(DataBarangModel dm) {
 		dr.save(dm);
 	}
+	
 	public void delete(List<Integer> ids) {
 		dr.deleteBarangWithIds(ids);
 	}
 	
+	public void deleteOne(Integer id) {
+		dr.deleteById(id);
+	}
+	
+	
+	public Optional<DataBarangModel> readById(Integer id) {
+		return dr.findById(id);
+	}
 	
 
 }
