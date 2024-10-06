@@ -18,6 +18,7 @@ import com.ats.DataBarang.model.KategoriModel;
 import com.ats.DataBarang.service.DataBarangService;
 import com.ats.DataBarang.service.KategoriService;
 
+
 @Controller
 public class DataBarangController {
 	
@@ -97,6 +98,7 @@ public class DataBarangController {
 	@RequestMapping(value="/delete", produces="text/plain")
 	@ResponseBody
 	public String deleteData(@RequestBody List<Integer> ids) {
+		System.out.println("Ids "+ids);
 		ds.delete(ids);
 		return "redirect:/";
 	}

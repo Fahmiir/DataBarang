@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ats.DataBarang.dto.IdList;
 import com.ats.DataBarang.model.DataBarangModel;
 import com.ats.DataBarang.repository.DataBarangRepository;
 
@@ -44,6 +45,10 @@ public class DataBarangService {
 	
 	public void delete(List<Integer> ids) {
 		dr.deleteBarangWithIds(ids);
+	}
+	
+	public void deleteMultiple(IdList ids) {
+		dr.deleteBarangWithMultipleIds(ids);
 	}
 	
 	public void deleteOne(Integer id) {
