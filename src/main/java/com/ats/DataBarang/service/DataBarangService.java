@@ -60,5 +60,9 @@ public class DataBarangService {
 		return dr.findById(id);
 	}
 	
+	public List<DataBarangModel> readByMultipleId(List<Integer> ids){
+		return dr.searchByIds(ids);
+	}
+	
 
 }

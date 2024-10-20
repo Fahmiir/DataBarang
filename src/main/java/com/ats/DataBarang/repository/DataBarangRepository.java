@@ -31,4 +31,8 @@ public interface DataBarangRepository extends JpaRepository<DataBarangModel, Int
 	@Query(value="Select * from tabel_barang tb where tb.nama_barang like %?1% order by tb.nama_barang", nativeQuery=true)
 	List<DataBarangModel> searchAndOrder(String barang);
 
+	
+	@Modifying
+	@Query("select d from DataBarangModel d where d.id in ?1")
+	List<DataBarangModel> searchByIds(List<Integer> ids);
 }

@@ -53,5 +53,10 @@ public class DataBarangRestController {
 	public Optional<DataBarangModel> readDataById(@RequestBody Integer id) {
 		return ds.readById(id);
 	}
+	
+	@RequestMapping(value="/viewMultiple",method=RequestMethod.POST)
+	public List<DataBarangModel> readMultipleData(@RequestBody List<Integer> ids){
+		return ds.readByMultipleId(ids);
+	}
 
 }
