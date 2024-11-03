@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import com.ats.DataBarang.dto.IdList;
 import com.ats.DataBarang.model.DataBarangModel;
 
 public interface DataBarangRepository extends JpaRepository<DataBarangModel, Integer>{

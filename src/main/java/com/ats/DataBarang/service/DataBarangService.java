@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ats.DataBarang.dto.IdList;
 import com.ats.DataBarang.model.DataBarangModel;
 import com.ats.DataBarang.repository.DataBarangRepository;
 
