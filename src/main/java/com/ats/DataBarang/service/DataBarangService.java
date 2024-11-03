@@ -47,7 +47,7 @@ public class DataBarangService {
 		dr.deleteBarangWithIds(ids);
 	}
 	
-	public void deleteMultiple(IdList ids) {
+	public void deleteMultiple(List<Integer> ids) {
 		dr.deleteBarangWithMultipleIds(ids);
 	}
 	

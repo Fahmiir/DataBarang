@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ats.DataBarang.dto.IdList;
 import com.ats.DataBarang.model.DataBarangModel;
 import com.ats.DataBarang.service.DataBarangService;
 
@@ -47,6 +48,12 @@ public class DataBarangRestController {
 	public void deleteMultipleData(@RequestBody List<Integer> ids) {
 		System.out.println("tes delete multiple");
 		ds.delete(ids);
+	}
+	
+	@RequestMapping(value="/deleteMultipleWithKey", method=RequestMethod.POST)
+	public void deleteMultipleDataWithKey(@RequestBody IdList ids) {
+		System.out.println("tes delete multiple with key");
+		ds.deleteMultiple(ids.getIds());
 	}
 	
 	@RequestMapping(value="/view",method=RequestMethod.POST)
