@@ -56,6 +56,12 @@ public class DataBarangRestController {
 		ds.deleteMultiple(ids.getIds());
 	}
 	
+	@RequestMapping(value="/deletePathVariable/{id}",method=RequestMethod.DELETE)
+	public void deletePathVariable(@PathVariable(value="id") Integer id) {
+		System.out.println("id = "+id);
+		ds.deleteOne(id);
+	}
+	
 	@RequestMapping(value="/view",method=RequestMethod.POST)
 	public Optional<DataBarangModel> readDataById(@RequestBody Integer id) {
 		return ds.readById(id);
