@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ats.DataBarang.dto.IdList;
@@ -70,6 +71,11 @@ public class DataBarangRestController {
 	@RequestMapping(value="/viewMultiple",method=RequestMethod.POST)
 	public List<DataBarangModel> readMultipleData(@RequestBody List<Integer> ids){
 		return ds.readByMultipleId(ids);
+	}
+	
+	@RequestMapping(value="/deleteQueryParam",method=RequestMethod.DELETE)
+	public void deleteQueryParam(@RequestParam("id") List<Integer> ids) {
+		ds.deleteMultiple(ids);
 	}
 
 }
