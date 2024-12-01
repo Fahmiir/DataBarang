@@ -28,6 +28,11 @@ public class DataBarangRestController {
 		ds.create(dm);
 	}
 	
+	@RequestMapping(value="/saveAll", method=RequestMethod.POST)
+	public void createAll(@RequestBody List<DataBarangModel> dm) {
+		ds.createAll(dm);
+	}
+	
     @RequestMapping(value="/",method=RequestMethod.GET)
     public List<DataBarangModel> readData(){
     	System.out.println("tes");

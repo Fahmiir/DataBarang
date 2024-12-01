@@ -38,6 +38,10 @@ public class DataBarangService {
 		dr.save(dm);
 	}
 	
+	public void createAll(List<DataBarangModel> dm) {
+		dr.saveAll(dm);
+	}
+	
 	public void update(DataBarangModel dm) {
 		dr.save(dm);
 	}
